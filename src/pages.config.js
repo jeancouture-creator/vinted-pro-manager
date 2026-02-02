@@ -58,6 +58,9 @@ import Marketing from './pages/Marketing';
 import Pricing from './pages/Pricing';
 import Settings from './pages/Settings';
 import Admin from './pages/Admin';
+import Accounts from './pages/Accounts';
+import SocialAutomation from './pages/SocialAutomation';
+import Billing from './pages/Billing';
 import __Layout from './Layout.jsx';
 
 
@@ -73,6 +76,9 @@ export const PAGES = {
     "Pricing": Pricing,
     "Settings": Settings,
     "Admin": Admin,
+    "Accounts": Accounts,
+    "SocialAutomation": SocialAutomation,
+    "Billing": Billing,
 }
 
 export const pagesConfig = {

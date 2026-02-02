@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { base44 } from '@/api/base44Client';
 import UsageMetrics from '@/components/subscription/UsageMetrics';
+import InvoiceHistory from '@/components/billing/InvoiceHistory';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { toast } from 'sonner';
@@ -104,9 +105,10 @@ export default function Settings() {
             </div>
 
             <Tabs defaultValue="profile" className="space-y-6">
-                <TabsList className="grid w-full grid-cols-4 max-w-2xl">
+                <TabsList className="grid w-full grid-cols-5 max-w-3xl">
                     <TabsTrigger value="profile">Profilo</TabsTrigger>
                     <TabsTrigger value="subscription">Abbonamento</TabsTrigger>
+                    <TabsTrigger value="billing">Fatturazione</TabsTrigger>
                     <TabsTrigger value="preferences">Preferenze</TabsTrigger>
                     <TabsTrigger value="privacy">Privacy</TabsTrigger>
                 </TabsList>
@@ -170,6 +172,11 @@ export default function Settings() {
                             <UsageMetrics user={user} items={items} orders={orders} />
                         </div>
                     </div>
+                </TabsContent>
+
+                {/* Billing Tab */}
+                <TabsContent value="billing">
+                    <InvoiceHistory />
                 </TabsContent>
 
                 {/* Subscription Tab */}

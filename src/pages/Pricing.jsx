@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Check, Sparkles } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import PlanCard from '@/components/subscription/PlanCard';
+import StripeCheckout from '@/components/billing/StripeCheckout';
 import { toast } from 'sonner';
 
 const plans = [
