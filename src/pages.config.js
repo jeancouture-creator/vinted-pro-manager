@@ -54,6 +54,7 @@ import Customers from './pages/Customers';
 import Finances from './pages/Finances';
 import Analytics from './pages/Analytics';
 import Returns from './pages/Returns';
+import Marketing from './pages/Marketing';
 import __Layout from './Layout.jsx';
 
 
@@ -65,6 +66,7 @@ export const PAGES = {
     "Finances": Finances,
     "Analytics": Analytics,
     "Returns": Returns,
+    "Marketing": Marketing,
 }
 
 export const pagesConfig = {

@@ -16,7 +16,8 @@ import {
     ChevronRight,
     Settings,
     LogOut,
-    RotateCcw
+    RotateCcw,
+    Sparkles
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import SearchBar from '@/components/common/SearchBar';
@@ -30,6 +31,7 @@ const navItems = [
     { name: 'Clienti', icon: Users, page: 'Customers' },
     { name: 'Finanze', icon: Wallet, page: 'Finances' },
     { name: 'Analytics', icon: TrendingUp, page: 'Analytics' },
+    { name: 'Marketing', icon: Sparkles, page: 'Marketing' },
     { name: 'Resi', icon: RotateCcw, page: 'Returns' }
 ];
 

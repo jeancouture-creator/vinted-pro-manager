@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Download, Search, Package, Truck, CheckCircle, Clock, XCircle, RotateCcw, Edit, Trash2, Eye } from 'lucide-react';
+import TrackingPanel from '@/components/shipping/TrackingPanel';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
