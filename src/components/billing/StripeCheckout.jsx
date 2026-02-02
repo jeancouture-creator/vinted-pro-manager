@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Loader2, CreditCard } from 'lucide-react';
+import { Loader2, CreditCard, AlertTriangle } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
 
@@ -8,53 +8,30 @@ export default function StripeCheckout({ plan, onSuccess }) {
     const [isLoading, setIsLoading] = useState(false);
 
     const handleCheckout = async () => {
+        // Check if running in iframe
+        if (window.self !== window.top) {
+            toast.error('Il checkout è disponibile solo dall\'app pubblicata', {
+                description: 'Apri l\'app in una nuova finestra per procedere con il pagamento'
+            });
+            return;
+        }
+
         setIsLoading(true);
         try {
-            // In a real implementation, this would create a Stripe checkout session
-            // For now, we'll simulate the upgrade
-            const user = await base44.auth.me();
-            
-            const updateData = {
-                subscription_plan: plan.id,
-                subscription_status: 'active',
-                subscription_started_at: new Date().toISOString().split('T')[0],
-                ai_credits_limit: plan.id === 'free' ? 10 : plan.id === 'pro' ? 500 : 2000
-            };
-
-            await base44.auth.updateMe(updateData);
-
-            // Log subscription change
-            await base44.entities.SubscriptionHistory.create({
-                user_id: user.id,
-                action: plan.id === 'free' ? 'downgrade' : 'upgrade',
-                from_plan: user?.subscription_plan || 'free',
-                to_plan: plan.id,
-                amount: plan.price
+            const response = await base44.functions.invoke('createCheckout', {
+                plan: plan.id
             });
 
-            // Create invoice record
-            if (plan.price > 0) {
-                const today = new Date();
-                const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
-                
-                await base44.entities.Invoice.create({
-                    user_id: user.id,
-                    amount: plan.price,
-                    status: 'paid',
-                    plan: plan.id,
-                    period_start: today.toISOString().split('T')[0],
-                    period_end: nextMonth.toISOString().split('T')[0],
-                    paid_date: new Date().toISOString()
-                });
+            if (response.data.url) {
+                window.location.href = response.data.url;
+            } else {
+                throw new Error('Checkout URL non disponibile');
             }
-
-            toast.success(`Piano ${plan.name} attivato con successo!`);
-            if (onSuccess) onSuccess();
         } catch (error) {
+            console.error('Checkout error:', error);
             toast.error('Errore durante il checkout');
-            console.error(error);
+            setIsLoading(false);
         }
-        setIsLoading(false);
     };
 
     return (
@@ -66,7 +43,7 @@ export default function StripeCheckout({ plan, onSuccess }) {
             {isLoading ? (
                 <>
                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    Elaborazione...
+                    Reindirizzamento...
                 </>
             ) : (
                 <>

@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Check, Sparkles, Crown, Zap } from 'lucide-react';
 import { motion } from 'framer-motion';
+import StripeCheckout from '@/components/billing/StripeCheckout';
 
 const planIcons = {
     free: Zap,
@@ -86,17 +87,23 @@ export default function PlanCard({ plan, isCurrentPlan, onSelect, index = 0 }) {
                 </div>
             )}
 
-            <Button 
-                onClick={() => onSelect(plan)}
-                disabled={isCurrentPlan}
-                className={`w-full ${
-                    plan.featured 
-                        ? 'bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700' 
-                        : 'bg-slate-900 hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100'
-                }`}
-            >
-                {isCurrentPlan ? 'Piano Attuale' : plan.price === 0 ? 'Inizia Gratis' : 'Scegli Piano'}
-            </Button>
+            {isCurrentPlan ? (
+                <Button 
+                    disabled
+                    className="w-full"
+                >
+                    Piano Attuale
+                </Button>
+            ) : plan.price === 0 ? (
+                <Button 
+                    onClick={() => onSelect(plan)}
+                    className="w-full"
+                >
+                    Inizia Gratis
+                </Button>
+            ) : (
+                <StripeCheckout plan={plan} onSuccess={() => onSelect(plan)} />
+            )}
         </motion.div>
     );
 }
