@@ -47,38 +47,40 @@
  *
  * The mainPage value must match a key in the PAGES object exactly.
  */
-import Dashboard from './pages/Dashboard';
-import Inventory from './pages/Inventory';
-import Orders from './pages/Orders';
-import Customers from './pages/Customers';
-import Finances from './pages/Finances';
-import Analytics from './pages/Analytics';
-import Returns from './pages/Returns';
-import Marketing from './pages/Marketing';
-import Pricing from './pages/Pricing';
-import Settings from './pages/Settings';
-import Admin from './pages/Admin';
 import Accounts from './pages/Accounts';
-import SocialAutomation from './pages/SocialAutomation';
+import Admin from './pages/Admin';
+import Analytics from './pages/Analytics';
 import Billing from './pages/Billing';
+import Customers from './pages/Customers';
+import Dashboard from './pages/Dashboard';
+import Finances from './pages/Finances';
+import Inventory from './pages/Inventory';
+import Marketing from './pages/Marketing';
+import Orders from './pages/Orders';
+import Pricing from './pages/Pricing';
+import Returns from './pages/Returns';
+import Settings from './pages/Settings';
+import SocialAutomation from './pages/SocialAutomation';
+import AIOptimization from './pages/AIOptimization';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
-    "Dashboard": Dashboard,
-    "Inventory": Inventory,
-    "Orders": Orders,
-    "Customers": Customers,
-    "Finances": Finances,
-    "Analytics": Analytics,
-    "Returns": Returns,
-    "Marketing": Marketing,
-    "Pricing": Pricing,
-    "Settings": Settings,
-    "Admin": Admin,
     "Accounts": Accounts,
-    "SocialAutomation": SocialAutomation,
+    "Admin": Admin,
+    "Analytics": Analytics,
     "Billing": Billing,
+    "Customers": Customers,
+    "Dashboard": Dashboard,
+    "Finances": Finances,
+    "Inventory": Inventory,
+    "Marketing": Marketing,
+    "Orders": Orders,
+    "Pricing": Pricing,
+    "Returns": Returns,
+    "Settings": Settings,
+    "SocialAutomation": SocialAutomation,
+    "AIOptimization": AIOptimization,
 }
 
 export const pagesConfig = {

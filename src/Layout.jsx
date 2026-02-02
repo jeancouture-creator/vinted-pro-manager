@@ -17,7 +17,8 @@ import {
     Settings,
     LogOut,
     RotateCcw,
-    Sparkles
+    Sparkles,
+    Brain
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import SearchBar from '@/components/common/SearchBar';
@@ -33,6 +34,7 @@ const navItems = [
     { name: 'Finanze', icon: Wallet, page: 'Finances' },
     { name: 'Analytics', icon: TrendingUp, page: 'Analytics' },
     { name: 'Marketing', icon: Sparkles, page: 'Marketing' },
+    { name: 'AI Optimization', icon: TrendingUp, page: 'AIOptimization' },
     { name: 'Resi', icon: RotateCcw, page: 'Returns' }
 ];
 
