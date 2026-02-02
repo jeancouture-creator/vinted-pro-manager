@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Sparkles, TrendingUp, Megaphone } from 'lucide-react';
 import DiscountSuggestions from '@/components/marketing/DiscountSuggestions';
 import SocialMediaGenerator from '@/components/marketing/SocialMediaGenerator';
+import AIDisclaimer from '@/components/compliance/AIDisclaimer';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 export default function Marketing() {
@@ -21,6 +22,9 @@ export default function Marketing() {
                     Strumenti intelligenti per aumentare le vendite
                 </p>
             </div>
+
+            {/* AI Disclaimer */}
+            <AIDisclaimer />
 
             {/* Tabs */}
             <Tabs defaultValue="discounts" className="space-y-6">

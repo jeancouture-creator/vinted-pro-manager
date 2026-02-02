@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Filter, Grid, List, Download, Search, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { canCreateItem } from '@/components/subscription/PlanLimits';
+import { toast } from 'sonner';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
@@ -46,6 +48,7 @@ const statuses = [
 
 export default function Inventory() {
     const [items, setItems] = useState([]);
+    const [user, setUser] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [showForm, setShowForm] = useState(false);
     const [editingItem, setEditingItem] = useState(null);
@@ -59,13 +62,22 @@ export default function Inventory() {
     const [sortBy, setSortBy] = useState('created_date');
 
     useEffect(() => {
-        loadItems();
+        loadData();
     }, []);
+
+    const loadData = async () => {
+        const [itemsData, userData] = await Promise.all([
+            base44.entities.Item.list('-created_date'),
+            base44.auth.me()
+        ]);
+        setItems(itemsData);
+        setUser(userData);
+        setIsLoading(false);
+    };
 
     const loadItems = async () => {
         const data = await base44.entities.Item.list('-created_date');
         setItems(data);
-        setIsLoading(false);
     };
 
     const handleSubmit = async (formData) => {
@@ -161,7 +173,17 @@ export default function Inventory() {
                         <Download className="w-4 h-4 mr-2" />
                         Esporta CSV
                     </Button>
-                    <Button onClick={() => { setEditingItem(null); setShowForm(true); }} className="bg-emerald-600 hover:bg-emerald-700">
+                    <Button 
+                        onClick={() => { 
+                            if (!canCreateItem(user, items.length)) {
+                                toast.error('Limite articoli raggiunto. Aggiorna il tuo piano.');
+                                return;
+                            }
+                            setEditingItem(null); 
+                            setShowForm(true); 
+                        }} 
+                        className="bg-emerald-600 hover:bg-emerald-700"
+                    >
                         <Plus className="w-4 h-4 mr-2" />
                         Nuovo Articolo
                     </Button>

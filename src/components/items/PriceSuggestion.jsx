@@ -1,23 +1,63 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Sparkles, TrendingUp, AlertCircle, Loader2 } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import { motion, AnimatePresence } from 'framer-motion';
+import { hasFeatureAccess, canUseAI } from '@/components/subscription/PlanLimits';
+import UpgradePrompt from '@/components/subscription/UpgradePrompt';
 
 export default function PriceSuggestion({ item, onSelectPrice }) {
     const [isLoading, setIsLoading] = useState(false);
     const [suggestion, setSuggestion] = useState(null);
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        loadUser();
+    }, []);
+
+    const loadUser = async () => {
+        const userData = await base44.auth.me();
+        setUser(userData);
+    };
 
     const getSuggestion = async () => {
+        if (!hasFeatureAccess(user, 'ai_price_suggestions')) {
+            return;
+        }
+        
+        if (!canUseAI(user)) {
+            return;
+        }
+
         setIsLoading(true);
         try {
             const response = await base44.functions.invoke('suggestPrice', { item });
             setSuggestion(response.data);
+            
+            // Log AI usage
+            await base44.entities.AIActivityLog.create({
+                user_id: user.id,
+                action_type: 'price_suggestion',
+                item_id: item.id,
+                output_data: JSON.stringify(response.data),
+                credits_used: 1
+            });
+            
+            // Update credits
+            await base44.auth.updateMe({
+                ai_credits_used: (user.ai_credits_used || 0) + 1
+            });
         } catch (error) {
             console.error('Error getting price suggestion:', error);
         }
         setIsLoading(false);
     };
+
+    if (!user) return null;
+
+    if (!hasFeatureAccess(user, 'ai_price_suggestions')) {
+        return <UpgradePrompt feature="Suggerimento prezzi AI" requiredPlan="pro" />;
+    }
 
     return (
         <div className="space-y-4">

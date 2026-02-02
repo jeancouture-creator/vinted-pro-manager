@@ -55,6 +55,9 @@ import Finances from './pages/Finances';
 import Analytics from './pages/Analytics';
 import Returns from './pages/Returns';
 import Marketing from './pages/Marketing';
+import Pricing from './pages/Pricing';
+import Settings from './pages/Settings';
+import Admin from './pages/Admin';
 import __Layout from './Layout.jsx';
 
 
@@ -67,6 +70,9 @@ export const PAGES = {
     "Analytics": Analytics,
     "Returns": Returns,
     "Marketing": Marketing,
+    "Pricing": Pricing,
+    "Settings": Settings,
+    "Admin": Admin,
 }
 
 export const pagesConfig = {

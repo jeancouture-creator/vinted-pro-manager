@@ -22,6 +22,7 @@ import {
 import { Button } from '@/components/ui/button';
 import SearchBar from '@/components/common/SearchBar';
 import ChatBot from '@/components/chat/ChatBot';
+import GDPRBanner from '@/components/compliance/GDPRBanner';
 import { base44 } from '@/api/base44Client';
 
 const navItems = [
@@ -33,6 +34,10 @@ const navItems = [
     { name: 'Analytics', icon: TrendingUp, page: 'Analytics' },
     { name: 'Marketing', icon: Sparkles, page: 'Marketing' },
     { name: 'Resi', icon: RotateCcw, page: 'Returns' }
+];
+
+const adminNavItems = [
+    { name: 'Admin', icon: Settings, page: 'Admin' }
 ];
 
 export default function Layout({ children, currentPageName }) {
@@ -114,20 +119,51 @@ export default function Layout({ children, currentPageName }) {
                                 </li>
                             );
                         })}
+
+                        {user?.role === 'admin' && (
+                            <>
+                                <div className="my-4 border-t border-slate-200 dark:border-slate-700" />
+                                {adminNavItems.map((item) => {
+                                    const isActive = currentPageName === item.page;
+                                    return (
+                                        <li key={item.page}>
+                                            <Link
+                                                to={createPageUrl(item.page)}
+                                                className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
+                                                    isActive 
+                                                        ? 'bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400' 
+                                                        : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700/50'
+                                                }`}
+                                            >
+                                                <item.icon className={`w-5 h-5 ${isActive ? 'text-amber-600 dark:text-amber-400' : ''}`} />
+                                                <span className="font-medium">{item.name}</span>
+                                                {isActive && (
+                                                    <ChevronRight className="w-4 h-4 ml-auto" />
+                                                )}
+                                            </Link>
+                                        </li>
+                                    );
+                                })}
+                            </>
+                        )}
                     </ul>
                 </nav>
 
                 <div className="p-4 border-t border-slate-200 dark:border-slate-700">
                     {user && (
-                        <div className="flex items-center gap-3 px-4 py-3">
-                            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center text-white font-semibold">
-                                {user.full_name?.charAt(0) || 'U'}
+                        <Link to={createPageUrl('Settings')}>
+                            <div className="flex items-center gap-3 px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-700/50 rounded-xl transition-colors cursor-pointer">
+                                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center text-white font-semibold">
+                                    {user.full_name?.charAt(0) || 'U'}
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                    <p className="font-medium text-slate-900 dark:text-white truncate">{user.full_name}</p>
+                                    <p className="text-xs text-slate-500 dark:text-slate-400 truncate">
+                                        {user.subscription_plan?.toUpperCase() || 'FREE'}
+                                    </p>
+                                </div>
                             </div>
-                            <div className="flex-1 min-w-0">
-                                <p className="font-medium text-slate-900 dark:text-white truncate">{user.full_name}</p>
-                                <p className="text-xs text-slate-500 dark:text-slate-400 truncate">{user.email}</p>
-                            </div>
-                        </div>
+                        </Link>
                     )}
                 </div>
             </aside>
@@ -235,6 +271,9 @@ export default function Layout({ children, currentPageName }) {
 
             {/* ChatBot */}
             <ChatBot />
+
+            {/* GDPR Banner */}
+            <GDPRBanner />
         </div>
     );
 }

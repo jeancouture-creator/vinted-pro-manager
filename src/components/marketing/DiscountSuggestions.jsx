@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Sparkles, TrendingDown, AlertCircle, Check, Loader2, Clock, Tag } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import { motion, AnimatePresence } from 'framer-motion';
+import { hasFeatureAccess } from '@/components/subscription/PlanLimits';
+import UpgradePrompt from '@/components/subscription/UpgradePrompt';
 
 const priorityColors = {
     high: 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-400',
@@ -15,8 +17,22 @@ export default function DiscountSuggestions() {
     const [isLoading, setIsLoading] = useState(false);
     const [suggestions, setSuggestions] = useState(null);
     const [appliedItems, setAppliedItems] = useState(new Set());
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        loadUser();
+    }, []);
+
+    const loadUser = async () => {
+        const userData = await base44.auth.me();
+        setUser(userData);
+    };
 
     const loadSuggestions = async () => {
+        if (!hasFeatureAccess(user, 'ai_discounts')) {
+            return;
+        }
+
         setIsLoading(true);
         try {
             const response = await base44.functions.invoke('suggestDiscounts');
@@ -26,6 +42,12 @@ export default function DiscountSuggestions() {
         }
         setIsLoading(false);
     };
+
+    if (!user) return null;
+
+    if (!hasFeatureAccess(user, 'ai_discounts')) {
+        return <UpgradePrompt feature="Sconti intelligenti AI" requiredPlan="pro" />;
+    }
 
     const applyDiscount = async (suggestion) => {
         try {

@@ -1,23 +1,63 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Wand2, Loader2, RefreshCw, Check } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import { motion, AnimatePresence } from 'framer-motion';
+import { hasFeatureAccess, canUseAI } from '@/components/subscription/PlanLimits';
+import UpgradePrompt from '@/components/subscription/UpgradePrompt';
 
 export default function DescriptionGenerator({ item, onSelectDescription }) {
     const [isLoading, setIsLoading] = useState(false);
     const [description, setDescription] = useState(null);
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        loadUser();
+    }, []);
+
+    const loadUser = async () => {
+        const userData = await base44.auth.me();
+        setUser(userData);
+    };
 
     const generateDescription = async () => {
+        if (!hasFeatureAccess(user, 'ai_descriptions')) {
+            return;
+        }
+        
+        if (!canUseAI(user)) {
+            return;
+        }
+
         setIsLoading(true);
         try {
             const response = await base44.functions.invoke('generateDescription', { item });
             setDescription(response.data.description);
+            
+            // Log AI usage
+            await base44.entities.AIActivityLog.create({
+                user_id: user.id,
+                action_type: 'description_generation',
+                item_id: item.id,
+                output_data: response.data.description,
+                credits_used: 1
+            });
+            
+            // Update credits
+            await base44.auth.updateMe({
+                ai_credits_used: (user.ai_credits_used || 0) + 1
+            });
         } catch (error) {
             console.error('Error generating description:', error);
         }
         setIsLoading(false);
     };
+
+    if (!user) return null;
+
+    if (!hasFeatureAccess(user, 'ai_descriptions')) {
+        return <UpgradePrompt feature="Generazione descrizioni AI" requiredPlan="pro" />;
+    }
 
     return (
         <div className="space-y-3">

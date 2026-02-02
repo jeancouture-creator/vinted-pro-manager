@@ -21,18 +21,27 @@ export default function SocialMediaGenerator() {
     const [isGenerating, setIsGenerating] = useState(false);
     const [generatedPost, setGeneratedPost] = useState(null);
     const [copied, setCopied] = useState(false);
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
-        loadItems();
+        loadData();
     }, []);
 
-    const loadItems = async () => {
-        const data = await base44.entities.Item.list();
-        setItems(data.filter(i => i.status === 'in_vendita'));
+    const loadData = async () => {
+        const [itemsData, userData] = await Promise.all([
+            base44.entities.Item.list(),
+            base44.auth.me()
+        ]);
+        setItems(itemsData.filter(i => i.status === 'in_vendita'));
+        setUser(userData);
     };
 
     const generatePost = async () => {
         if (selectedItems.length === 0) return;
+        
+        if (!hasFeatureAccess(user, 'social_posts')) {
+            return;
+        }
         
         setIsGenerating(true);
         try {
@@ -43,11 +52,30 @@ export default function SocialMediaGenerator() {
                 tone
             });
             setGeneratedPost(response.data);
+            
+            // Log AI usage
+            await base44.entities.AIActivityLog.create({
+                user_id: user.id,
+                action_type: 'social_post',
+                output_data: response.data.content,
+                credits_used: 2
+            });
+            
+            // Update credits
+            await base44.auth.updateMe({
+                ai_credits_used: (user.ai_credits_used || 0) + 2
+            });
         } catch (error) {
             console.error('Error generating post:', error);
         }
         setIsGenerating(false);
     };
+
+    if (!user) return null;
+
+    if (!hasFeatureAccess(user, 'social_posts')) {
+        return <UpgradePrompt feature="Generazione post social AI" requiredPlan="pro" />;
+    }
 
     const copyToClipboard = () => {
         if (generatedPost) {
