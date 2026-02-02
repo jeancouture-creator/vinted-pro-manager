@@ -15,7 +15,8 @@ import {
     Sun,
     ChevronRight,
     Settings,
-    LogOut
+    LogOut,
+    RotateCcw
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import SearchBar from '@/components/common/SearchBar';
@@ -28,7 +29,8 @@ const navItems = [
     { name: 'Ordini', icon: ShoppingCart, page: 'Orders' },
     { name: 'Clienti', icon: Users, page: 'Customers' },
     { name: 'Finanze', icon: Wallet, page: 'Finances' },
-    { name: 'Analytics', icon: TrendingUp, page: 'Analytics' }
+    { name: 'Analytics', icon: TrendingUp, page: 'Analytics' },
+    { name: 'Resi', icon: RotateCcw, page: 'Returns' }
 ];
 
 export default function Layout({ children, currentPageName }) {

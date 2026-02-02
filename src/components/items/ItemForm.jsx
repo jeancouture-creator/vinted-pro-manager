@@ -7,6 +7,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { X, Upload, Plus, Trash2, Loader2 } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
+import PriceSuggestion from './PriceSuggestion';
+import DescriptionGenerator from './DescriptionGenerator';
 
 const categories = [
     { value: 'giacche', label: 'Giacche' },
@@ -263,31 +265,40 @@ export default function ItemForm({ item, onSubmit, onClose }) {
                         </div>
 
                         {/* Prices */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <Label htmlFor="purchase_price">Prezzo Acquisto (€) *</Label>
-                                <Input
-                                    id="purchase_price"
-                                    type="number"
-                                    step="0.01"
-                                    value={formData.purchase_price}
-                                    onChange={e => handleChange('purchase_price', e.target.value)}
-                                    required
-                                    className="mt-1"
-                                />
+                        <div className="space-y-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <Label htmlFor="purchase_price">Prezzo Acquisto (€) *</Label>
+                                    <Input
+                                        id="purchase_price"
+                                        type="number"
+                                        step="0.01"
+                                        value={formData.purchase_price}
+                                        onChange={e => handleChange('purchase_price', e.target.value)}
+                                        required
+                                        className="mt-1"
+                                    />
+                                </div>
+                                <div>
+                                    <Label htmlFor="selling_price">Prezzo Vendita (€) *</Label>
+                                    <Input
+                                        id="selling_price"
+                                        type="number"
+                                        step="0.01"
+                                        value={formData.selling_price}
+                                        onChange={e => handleChange('selling_price', e.target.value)}
+                                        required
+                                        className="mt-1"
+                                    />
+                                </div>
                             </div>
-                            <div>
-                                <Label htmlFor="selling_price">Prezzo Vendita (€) *</Label>
-                                <Input
-                                    id="selling_price"
-                                    type="number"
-                                    step="0.01"
-                                    value={formData.selling_price}
-                                    onChange={e => handleChange('selling_price', e.target.value)}
-                                    required
-                                    className="mt-1"
+                            
+                            {formData.purchase_price && formData.category && (
+                                <PriceSuggestion 
+                                    item={formData} 
+                                    onSelectPrice={(price) => handleChange('selling_price', price)}
                                 />
-                            </div>
+                            )}
                         </div>
 
                         <div>
@@ -298,6 +309,10 @@ export default function ItemForm({ item, onSubmit, onClose }) {
                                 onChange={e => handleChange('description', e.target.value)}
                                 rows={3}
                                 className="mt-1"
+                            />
+                            <DescriptionGenerator 
+                                item={formData} 
+                                onSelectDescription={(desc) => handleChange('description', desc)}
                             />
                         </div>
 

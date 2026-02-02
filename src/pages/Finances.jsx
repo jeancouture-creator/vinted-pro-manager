@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Download, TrendingUp, TrendingDown, Wallet, CreditCard, Receipt, X, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import ReportGenerator from '@/components/reports/ReportGenerator';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
@@ -361,6 +362,9 @@ export default function Finances() {
                     </TableBody>
                 </Table>
             </motion.div>
+
+            {/* Report Generator */}
+            <ReportGenerator />
 
             {/* Expense Form Modal */}
             <AnimatePresence>
