@@ -196,6 +196,9 @@ export default function Orders() {
                 </Select>
             </div>
 
+            {/* Tracking Panel */}
+            <TrackingPanel />
+
             {/* Orders Table */}
             <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 overflow-hidden">
                 <Table>

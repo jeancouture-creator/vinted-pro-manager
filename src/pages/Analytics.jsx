@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { TrendingUp, TrendingDown, Package, ShoppingCart, DollarSign, Users, Calendar, BarChart3 } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { base44 } from '@/api/base44Client';
+import AdvancedKPIs from '@/components/analytics/AdvancedKPIs';
 import { LineChart, Line, AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { format, subDays, startOfMonth, endOfMonth, eachDayOfInterval, eachWeekOfInterval, eachMonthOfInterval } from 'date-fns';
 import { it } from 'date-fns/locale';
@@ -13,6 +14,7 @@ export default function Analytics() {
     const [items, setItems] = useState([]);
     const [orders, setOrders] = useState([]);
     const [customers, setCustomers] = useState([]);
+    const [expenses, setExpenses] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [period, setPeriod] = useState('30');
 
@@ -21,14 +23,16 @@ export default function Analytics() {
     }, []);
 
     const loadData = async () => {
-        const [itemsData, ordersData, customersData] = await Promise.all([
+        const [itemsData, ordersData, customersData, expensesData] = await Promise.all([
             base44.entities.Item.list('-created_date'),
             base44.entities.Order.list('-created_date'),
-            base44.entities.Customer.list('-created_date')
+            base44.entities.Customer.list('-created_date'),
+            base44.entities.Expense.list('-created_date')
         ]);
         setItems(itemsData);
         setOrders(ordersData);
         setCustomers(customersData);
+        setExpenses(expensesData);
         setIsLoading(false);
     };
 
@@ -204,6 +208,9 @@ export default function Analytics() {
                     </SelectContent>
                 </Select>
             </div>
+
+            {/* Advanced KPIs */}
+            <AdvancedKPIs items={items} orders={filteredOrders} expenses={expenses} />
 
             {/* KPI Cards */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
