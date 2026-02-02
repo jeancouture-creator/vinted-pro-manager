@@ -52,6 +52,7 @@ import Inventory from './pages/Inventory';
 import Orders from './pages/Orders';
 import Customers from './pages/Customers';
 import Finances from './pages/Finances';
+import Analytics from './pages/Analytics';
 import __Layout from './Layout.jsx';
 
 
@@ -61,6 +62,7 @@ export const PAGES = {
     "Orders": Orders,
     "Customers": Customers,
     "Finances": Finances,
+    "Analytics": Analytics,
 }
 
 export const pagesConfig = {
