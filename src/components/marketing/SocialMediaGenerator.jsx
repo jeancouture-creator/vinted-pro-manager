@@ -6,6 +6,8 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Instagram, Facebook, Video, Copy, Check, Loader2, Wand2 } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import { motion, AnimatePresence } from 'framer-motion';
+import { hasFeatureAccess } from '@/components/subscription/PlanLimits';
+import UpgradePrompt from '@/components/subscription/UpgradePrompt';
 
 const platformIcons = {
     instagram: Instagram,
