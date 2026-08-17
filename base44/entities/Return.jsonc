@@ -1,0 +1,75 @@
+{
+  "name": "Return",
+  "type": "object",
+  "properties": {
+    "order_id": {
+      "type": "string",
+      "description": "ID ordine originale"
+    },
+    "item_id": {
+      "type": "string",
+      "description": "ID articolo"
+    },
+    "item_name": {
+      "type": "string",
+      "description": "Nome articolo"
+    },
+    "customer_id": {
+      "type": "string",
+      "description": "ID cliente"
+    },
+    "customer_name": {
+      "type": "string",
+      "description": "Nome cliente"
+    },
+    "reason": {
+      "type": "string",
+      "enum": [
+        "not_as_described",
+        "damaged",
+        "wrong_item",
+        "changed_mind",
+        "other"
+      ],
+      "description": "Motivo reso"
+    },
+    "reason_details": {
+      "type": "string",
+      "description": "Dettagli motivo"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "requested",
+        "approved",
+        "rejected",
+        "received",
+        "refunded"
+      ],
+      "default": "requested",
+      "description": "Stato reso"
+    },
+    "refund_amount": {
+      "type": "number",
+      "description": "Importo rimborsato"
+    },
+    "return_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Data richiesta reso"
+    },
+    "received_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Data ricezione reso"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Note"
+    }
+  },
+  "required": [
+    "item_name",
+    "reason"
+  ]
+}

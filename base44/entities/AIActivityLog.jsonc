@@ -1,0 +1,57 @@
+{
+  "name": "AIActivityLog",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "description": "ID utente"
+    },
+    "action_type": {
+      "type": "string",
+      "enum": [
+        "price_suggestion",
+        "description_generation",
+        "discount_suggestion",
+        "social_post",
+        "chat_message"
+      ],
+      "description": "Tipo azione AI"
+    },
+    "item_id": {
+      "type": "string",
+      "description": "ID articolo (se applicabile)"
+    },
+    "input_data": {
+      "type": "string",
+      "description": "Dati input"
+    },
+    "output_data": {
+      "type": "string",
+      "description": "Risultato generato"
+    },
+    "credits_used": {
+      "type": "number",
+      "default": 1,
+      "description": "Crediti consumati"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "approved",
+        "auto_approved",
+        "rejected"
+      ],
+      "default": "auto_approved",
+      "description": "Stato approvazione"
+    },
+    "approved_by": {
+      "type": "string",
+      "description": "Approvato da (user_id)"
+    }
+  },
+  "required": [
+    "user_id",
+    "action_type"
+  ]
+}

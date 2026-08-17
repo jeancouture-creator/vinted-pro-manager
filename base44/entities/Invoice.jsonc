@@ -1,0 +1,63 @@
+{
+  "name": "Invoice",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "description": "ID utente"
+    },
+    "stripe_invoice_id": {
+      "type": "string",
+      "description": "ID fattura Stripe"
+    },
+    "amount": {
+      "type": "number",
+      "description": "Importo"
+    },
+    "currency": {
+      "type": "string",
+      "default": "EUR",
+      "description": "Valuta"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "open",
+        "paid",
+        "void",
+        "uncollectible"
+      ],
+      "default": "open",
+      "description": "Stato fattura"
+    },
+    "plan": {
+      "type": "string",
+      "description": "Piano abbonamento"
+    },
+    "period_start": {
+      "type": "string",
+      "format": "date",
+      "description": "Inizio periodo"
+    },
+    "period_end": {
+      "type": "string",
+      "format": "date",
+      "description": "Fine periodo"
+    },
+    "invoice_pdf": {
+      "type": "string",
+      "description": "URL PDF fattura"
+    },
+    "paid_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Data pagamento"
+    }
+  },
+  "required": [
+    "user_id",
+    "amount",
+    "plan"
+  ]
+}

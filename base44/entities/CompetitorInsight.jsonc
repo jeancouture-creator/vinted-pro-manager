@@ -1,0 +1,66 @@
+{
+  "name": "CompetitorInsight",
+  "type": "object",
+  "properties": {
+    "item_id": {
+      "type": "string",
+      "description": "ID articolo"
+    },
+    "market_avg_price": {
+      "type": "number",
+      "description": "Prezzo medio mercato"
+    },
+    "price_range_min": {
+      "type": "number",
+      "description": "Prezzo minimo range"
+    },
+    "price_range_max": {
+      "type": "number",
+      "description": "Prezzo massimo range"
+    },
+    "avg_days_to_sell": {
+      "type": "number",
+      "description": "Giorni medi vendita"
+    },
+    "total_similar_items": {
+      "type": "number",
+      "description": "Totale articoli simili"
+    },
+    "competitive_position": {
+      "type": "string",
+      "enum": [
+        "above_market",
+        "in_market",
+        "below_market",
+        "underpriced"
+      ],
+      "description": "Posizionamento competitivo"
+    },
+    "winning_strategies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Strategie vincenti"
+    },
+    "differentiation_opportunities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Opportunit\u00e0 differenziazione"
+    },
+    "demand_level": {
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ],
+      "description": "Livello domanda"
+    }
+  },
+  "required": [
+    "item_id"
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "name": "ShippingTracking",
+  "type": "object",
+  "properties": {
+    "order_id": {
+      "type": "string",
+      "description": "ID ordine"
+    },
+    "tracking_number": {
+      "type": "string",
+      "description": "Numero tracking"
+    },
+    "carrier": {
+      "type": "string",
+      "enum": [
+        "poste_italiane",
+        "brt",
+        "gls",
+        "dhl",
+        "ups",
+        "fedex",
+        "inpost",
+        "altro"
+      ],
+      "description": "Corriere"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "in_transito",
+        "in_consegna",
+        "consegnato",
+        "in_ritardo",
+        "problema",
+        "sconosciuto"
+      ],
+      "default": "sconosciuto",
+      "description": "Stato spedizione"
+    },
+    "current_location": {
+      "type": "string",
+      "description": "Posizione attuale"
+    },
+    "estimated_delivery": {
+      "type": "string",
+      "format": "date",
+      "description": "Consegna stimata"
+    },
+    "last_update": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Ultimo aggiornamento"
+    },
+    "tracking_events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Cronologia eventi"
+    },
+    "is_delayed": {
+      "type": "boolean",
+      "default": false,
+      "description": "Spedizione in ritardo"
+    }
+  },
+  "required": [
+    "order_id",
+    "tracking_number",
+    "carrier"
+  ]
+}

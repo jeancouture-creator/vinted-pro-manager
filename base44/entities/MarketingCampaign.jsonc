@@ -1,0 +1,74 @@
+{
+  "name": "MarketingCampaign",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Titolo campagna"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "discount",
+        "social_post",
+        "listing_optimization"
+      ],
+      "description": "Tipo campagna"
+    },
+    "target_items": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "ID articoli target"
+    },
+    "discount_percentage": {
+      "type": "number",
+      "description": "Percentuale sconto"
+    },
+    "content": {
+      "type": "string",
+      "description": "Contenuto generato"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "active",
+        "completed",
+        "cancelled"
+      ],
+      "default": "draft",
+      "description": "Stato campagna"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Data inizio"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Data fine"
+    },
+    "performance": {
+      "type": "object",
+      "properties": {
+        "views": {
+          "type": "number"
+        },
+        "clicks": {
+          "type": "number"
+        },
+        "conversions": {
+          "type": "number"
+        }
+      },
+      "description": "Metriche performance"
+    }
+  },
+  "required": [
+    "title",
+    "type"
+  ]
+}

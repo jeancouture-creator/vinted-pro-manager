@@ -1,0 +1,77 @@
+{
+  "name": "SEOAnalysis",
+  "type": "object",
+  "properties": {
+    "item_id": {
+      "type": "string",
+      "description": "ID articolo"
+    },
+    "seo_score": {
+      "type": "number",
+      "description": "Punteggio SEO (0-100)"
+    },
+    "original_title": {
+      "type": "string",
+      "description": "Titolo originale"
+    },
+    "optimized_title": {
+      "type": "string",
+      "description": "Titolo ottimizzato"
+    },
+    "original_description": {
+      "type": "string",
+      "description": "Descrizione originale"
+    },
+    "optimized_description": {
+      "type": "string",
+      "description": "Descrizione ottimizzata"
+    },
+    "primary_keywords": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Keyword principali"
+    },
+    "secondary_keywords": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Keyword secondarie"
+    },
+    "suggested_hashtags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Hashtag suggeriti"
+    },
+    "improvements": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Suggerimenti miglioramento"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "approved",
+        "rejected"
+      ],
+      "default": "pending",
+      "description": "Stato approvazione"
+    },
+    "applied_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Data applicazione"
+    }
+  },
+  "required": [
+    "item_id",
+    "seo_score"
+  ]
+}

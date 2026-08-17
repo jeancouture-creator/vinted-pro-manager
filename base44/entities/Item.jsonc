@@ -1,0 +1,108 @@
+{
+  "name": "Item",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Nome articolo"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "giacche",
+        "pantaloni",
+        "maglie",
+        "camicie",
+        "felpe",
+        "vestiti",
+        "gonne",
+        "scarpe",
+        "borse",
+        "accessori",
+        "cappelli",
+        "intimo",
+        "costumi",
+        "altro"
+      ],
+      "description": "Categoria"
+    },
+    "brand": {
+      "type": "string",
+      "description": "Brand/Marca"
+    },
+    "condition": {
+      "type": "string",
+      "enum": [
+        "nuovo_con_cartellino",
+        "nuovo_senza_cartellino",
+        "come_nuovo",
+        "buono",
+        "usato",
+        "molto_usato"
+      ],
+      "description": "Condizioni"
+    },
+    "description": {
+      "type": "string",
+      "description": "Descrizione dettagliata"
+    },
+    "size": {
+      "type": "string",
+      "description": "Taglia"
+    },
+    "color": {
+      "type": "string",
+      "description": "Colore"
+    },
+    "material": {
+      "type": "string",
+      "description": "Materiale"
+    },
+    "purchase_price": {
+      "type": "number",
+      "description": "Prezzo di acquisto"
+    },
+    "selling_price": {
+      "type": "number",
+      "description": "Prezzo di vendita previsto"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "in_magazzino",
+        "in_vendita",
+        "venduto",
+        "reso",
+        "riservato"
+      ],
+      "default": "in_magazzino",
+      "description": "Stato del capo"
+    },
+    "photos": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "URL foto prodotto"
+    },
+    "vinted_url": {
+      "type": "string",
+      "description": "Link annuncio Vinted"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Note aggiuntive"
+    },
+    "published_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Data pubblicazione su Vinted"
+    }
+  },
+  "required": [
+    "name",
+    "category",
+    "purchase_price",
+    "selling_price"
+  ]
+}

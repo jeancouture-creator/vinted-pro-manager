@@ -1,0 +1,54 @@
+{
+  "name": "Expense",
+  "type": "object",
+  "properties": {
+    "description": {
+      "type": "string",
+      "description": "Descrizione spesa"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "acquisto_merce",
+        "spedizione",
+        "commissioni",
+        "materiali_imballaggio",
+        "fotografia",
+        "abbonamenti",
+        "resi",
+        "altro"
+      ],
+      "description": "Categoria spesa"
+    },
+    "amount": {
+      "type": "number",
+      "description": "Importo"
+    },
+    "expense_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Data spesa"
+    },
+    "related_order_id": {
+      "type": "string",
+      "description": "ID ordine collegato"
+    },
+    "related_item_id": {
+      "type": "string",
+      "description": "ID articolo collegato"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Note"
+    },
+    "receipt_url": {
+      "type": "string",
+      "description": "URL ricevuta/scontrino"
+    }
+  },
+  "required": [
+    "description",
+    "category",
+    "amount"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "name": "SubscriptionHistory",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "description": "ID utente"
+    },
+    "action": {
+      "type": "string",
+      "enum": [
+        "upgrade",
+        "downgrade",
+        "renew",
+        "cancel",
+        "trial_start",
+        "trial_end"
+      ],
+      "description": "Azione"
+    },
+    "from_plan": {
+      "type": "string",
+      "description": "Piano precedente"
+    },
+    "to_plan": {
+      "type": "string",
+      "description": "Nuovo piano"
+    },
+    "amount": {
+      "type": "number",
+      "description": "Importo transazione"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Note"
+    }
+  },
+  "required": [
+    "user_id",
+    "action"
+  ]
+}

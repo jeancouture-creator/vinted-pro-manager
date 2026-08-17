@@ -1,0 +1,60 @@
+{
+  "name": "Customer",
+  "type": "object",
+  "properties": {
+    "full_name": {
+      "type": "string",
+      "description": "Nome e cognome"
+    },
+    "vinted_username": {
+      "type": "string",
+      "description": "Username Vinted"
+    },
+    "email": {
+      "type": "string",
+      "description": "Email"
+    },
+    "phone": {
+      "type": "string",
+      "description": "Telefono"
+    },
+    "address": {
+      "type": "string",
+      "description": "Indirizzo"
+    },
+    "city": {
+      "type": "string",
+      "description": "Citt\u00e0"
+    },
+    "postal_code": {
+      "type": "string",
+      "description": "CAP"
+    },
+    "province": {
+      "type": "string",
+      "description": "Provincia"
+    },
+    "country": {
+      "type": "string",
+      "default": "Italia",
+      "description": "Paese"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Note sul cliente"
+    },
+    "total_orders": {
+      "type": "number",
+      "default": 0,
+      "description": "Numero ordini totali"
+    },
+    "total_spent": {
+      "type": "number",
+      "default": 0,
+      "description": "Totale speso"
+    }
+  },
+  "required": [
+    "full_name"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "name": "ItemActivity",
+  "type": "object",
+  "properties": {
+    "item_id": {
+      "type": "string",
+      "description": "ID articolo"
+    },
+    "action": {
+      "type": "string",
+      "enum": [
+        "created",
+        "updated",
+        "status_changed",
+        "price_changed",
+        "photo_added",
+        "published",
+        "sold"
+      ],
+      "description": "Tipo azione"
+    },
+    "description": {
+      "type": "string",
+      "description": "Descrizione azione"
+    },
+    "old_value": {
+      "type": "string",
+      "description": "Valore precedente"
+    },
+    "new_value": {
+      "type": "string",
+      "description": "Nuovo valore"
+    }
+  },
+  "required": [
+    "item_id",
+    "action"
+  ]
+}

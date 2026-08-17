@@ -1,0 +1,102 @@
+{
+  "name": "Order",
+  "type": "object",
+  "properties": {
+    "order_number": {
+      "type": "string",
+      "description": "Numero ordine Vinted"
+    },
+    "item_id": {
+      "type": "string",
+      "description": "ID articolo venduto"
+    },
+    "item_name": {
+      "type": "string",
+      "description": "Nome articolo"
+    },
+    "customer_id": {
+      "type": "string",
+      "description": "ID cliente"
+    },
+    "customer_name": {
+      "type": "string",
+      "description": "Nome cliente"
+    },
+    "sale_price": {
+      "type": "number",
+      "description": "Prezzo vendita finale"
+    },
+    "purchase_price": {
+      "type": "number",
+      "description": "Prezzo acquisto originale"
+    },
+    "shipping_cost": {
+      "type": "number",
+      "default": 0,
+      "description": "Costo spedizione"
+    },
+    "vinted_commission": {
+      "type": "number",
+      "default": 0,
+      "description": "Commissione Vinted"
+    },
+    "net_profit": {
+      "type": "number",
+      "description": "Guadagno netto"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "in_attesa",
+        "pagato",
+        "spedito",
+        "consegnato",
+        "completato",
+        "annullato",
+        "reso"
+      ],
+      "default": "in_attesa",
+      "description": "Stato ordine"
+    },
+    "shipping_method": {
+      "type": "string",
+      "enum": [
+        "poste_italiane",
+        "brt",
+        "gls",
+        "dhl",
+        "ups",
+        "fedex",
+        "inpost",
+        "altro"
+      ],
+      "description": "Metodo spedizione"
+    },
+    "tracking_number": {
+      "type": "string",
+      "description": "Codice tracking"
+    },
+    "order_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Data ordine"
+    },
+    "shipped_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Data spedizione"
+    },
+    "delivered_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Data consegna"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Note ordine"
+    }
+  },
+  "required": [
+    "sale_price"
+  ]
+}

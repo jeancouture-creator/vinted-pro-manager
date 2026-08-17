@@ -1,0 +1,77 @@
+{
+  "name": "PricingHistory",
+  "type": "object",
+  "properties": {
+    "item_id": {
+      "type": "string",
+      "description": "ID articolo"
+    },
+    "previous_price": {
+      "type": "number",
+      "description": "Prezzo precedente"
+    },
+    "suggested_price": {
+      "type": "number",
+      "description": "Prezzo suggerito"
+    },
+    "new_price": {
+      "type": "number",
+      "description": "Nuovo prezzo applicato"
+    },
+    "reason": {
+      "type": "string",
+      "description": "Motivo modifica"
+    },
+    "factors": {
+      "type": "object",
+      "properties": {
+        "market_demand": {
+          "type": "string"
+        },
+        "seasonality": {
+          "type": "string"
+        },
+        "competition": {
+          "type": "string"
+        },
+        "time_on_market": {
+          "type": "number"
+        }
+      },
+      "description": "Fattori considerati"
+    },
+    "estimated_margin": {
+      "type": "number",
+      "description": "Margine stimato %"
+    },
+    "action_type": {
+      "type": "string",
+      "enum": [
+        "increase",
+        "decrease",
+        "maintain"
+      ],
+      "description": "Tipo azione"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "approved",
+        "rejected",
+        "applied"
+      ],
+      "default": "pending",
+      "description": "Stato"
+    },
+    "applied_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Data applicazione"
+    }
+  },
+  "required": [
+    "item_id",
+    "suggested_price"
+  ]
+}

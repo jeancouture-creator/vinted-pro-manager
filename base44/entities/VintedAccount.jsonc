@@ -1,0 +1,62 @@
+{
+  "name": "VintedAccount",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "description": "ID utente proprietario"
+    },
+    "username": {
+      "type": "string",
+      "description": "Username Vinted"
+    },
+    "is_primary": {
+      "type": "boolean",
+      "default": true,
+      "description": "Account primario"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Account attivo"
+    },
+    "total_items": {
+      "type": "number",
+      "default": 0,
+      "description": "Totale articoli"
+    },
+    "total_sales": {
+      "type": "number",
+      "default": 0,
+      "description": "Totale vendite"
+    },
+    "connected_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Data collegamento"
+    },
+    "last_sync": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Ultima sincronizzazione"
+    },
+    "settings": {
+      "type": "object",
+      "properties": {
+        "auto_republish": {
+          "type": "boolean",
+          "default": false
+        },
+        "auto_boost": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "description": "Impostazioni account"
+    }
+  },
+  "required": [
+    "user_id",
+    "username"
+  ]
+}

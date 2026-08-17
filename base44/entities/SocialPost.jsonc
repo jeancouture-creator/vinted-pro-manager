@@ -1,0 +1,105 @@
+{
+  "name": "SocialPost",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "description": "ID utente"
+    },
+    "vinted_account_id": {
+      "type": "string",
+      "description": "ID account Vinted"
+    },
+    "platform": {
+      "type": "string",
+      "enum": [
+        "instagram",
+        "facebook",
+        "tiktok",
+        "twitter"
+      ],
+      "description": "Piattaforma social"
+    },
+    "content": {
+      "type": "string",
+      "description": "Contenuto post"
+    },
+    "tone": {
+      "type": "string",
+      "enum": [
+        "casual",
+        "professional",
+        "aggressive",
+        "minimal",
+        "luxury"
+      ],
+      "default": "casual",
+      "description": "Tono comunicativo"
+    },
+    "target_items": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Articoli promossi"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "scheduled",
+        "published",
+        "failed"
+      ],
+      "default": "draft",
+      "description": "Stato post"
+    },
+    "scheduled_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Data programmazione"
+    },
+    "published_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Data pubblicazione"
+    },
+    "hashtags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Hashtag"
+    },
+    "media_urls": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "URL media allegati"
+    },
+    "performance": {
+      "type": "object",
+      "properties": {
+        "views": {
+          "type": "number"
+        },
+        "likes": {
+          "type": "number"
+        },
+        "comments": {
+          "type": "number"
+        },
+        "shares": {
+          "type": "number"
+        }
+      },
+      "description": "Metriche performance"
+    }
+  },
+  "required": [
+    "user_id",
+    "platform",
+    "content"
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "name": "User",
+  "type": "object",
+  "properties": {
+    "subscription_plan": {
+      "type": "string",
+      "enum": [
+        "free",
+        "pro",
+        "enterprise"
+      ],
+      "default": "free",
+      "description": "Piano abbonamento"
+    },
+    "subscription_status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "trial",
+        "expired",
+        "cancelled"
+      ],
+      "default": "trial",
+      "description": "Stato abbonamento"
+    },
+    "trial_ends_at": {
+      "type": "string",
+      "format": "date",
+      "description": "Fine trial"
+    },
+    "subscription_started_at": {
+      "type": "string",
+      "format": "date",
+      "description": "Inizio abbonamento"
+    },
+    "ai_credits_used": {
+      "type": "number",
+      "default": 0,
+      "description": "Crediti AI usati questo mese"
+    },
+    "ai_credits_limit": {
+      "type": "number",
+      "default": 50,
+      "description": "Limite crediti AI"
+    },
+    "vinted_accounts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "is_primary": {
+            "type": "boolean"
+          }
+        }
+      },
+      "description": "Account Vinted collegati"
+    },
+    "settings": {
+      "type": "object",
+      "properties": {
+        "auto_backup": {
+          "type": "boolean",
+          "default": false
+        },
+        "ai_auto_approve": {
+          "type": "boolean",
+          "default": true
+        },
+        "email_notifications": {
+          "type": "boolean",
+          "default": true
+        }
+      },
+      "description": "Impostazioni utente"
+    },
+    "company_name": {
+      "type": "string",
+      "description": "Nome azienda (Enterprise)"
+    },
+    "vat_number": {
+      "type": "string",
+      "description": "Partita IVA"
+    }
+  },
+  "required": [
+    "trial_ends_at",
+    "subscription_started_at",
+    "vinted_accounts",
+    "settings",
+    "company_name",
+    "vat_number"
+  ]
+}

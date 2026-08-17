@@ -1,0 +1,38 @@
+{
+  "name": "ItemChecklist",
+  "type": "object",
+  "properties": {
+    "item_id": {
+      "type": "string",
+      "description": "ID articolo"
+    },
+    "task": {
+      "type": "string",
+      "description": "Task da completare"
+    },
+    "completed": {
+      "type": "boolean",
+      "default": false,
+      "description": "Completato"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "medium",
+      "description": "Priorit\u00e0"
+    },
+    "due_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Scadenza"
+    }
+  },
+  "required": [
+    "item_id",
+    "task"
+  ]
+}
